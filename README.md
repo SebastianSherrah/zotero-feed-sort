@@ -51,7 +51,7 @@ updates.
 
 ## Compatibility
 
-The plugin supports Zotero 9.x. It modifies internal Zotero interface behaviour,
+The plugin supports Zotero 9.0.x. It modifies internal Zotero interface behaviour,
 so a future major Zotero release may require a compatibility update.
 
 This is an independent plugin and is not affiliated with the Zotero project.

@@ -1,0 +1,19 @@
+{
+  "addons": {
+    "zotero-feed-sort@sebastiansherrah.github.io": {
+      "updates": [
+        {
+          "version": "1.0.0",
+          "update_link": "https://github.com/SebastianSherrah/zotero-feed-sort/releases/download/v1.0.0/zotero-feed-sort-1.0.0.xpi",
+          "update_hash": "sha256:aa10b65760c936be484ddc49acc0a2e1ff6021129bd1c5b40f83f8ddd9338018",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "9.0",
+              "strict_max_version": "9.0.*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
