@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Zotero Feed Sort",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Adds normal clickable column sorting to Zotero feeds, defaulting to newest first.",
   "author": "Sebastian Sherrah",
   "homepage_url": "https://github.com/SebastianSherrah/zotero-feed-sort",
@@ -13,8 +13,8 @@
     "zotero": {
       "id": "zotero-feed-sort@sebastiansherrah.github.io",
       "update_url": "https://raw.githubusercontent.com/SebastianSherrah/zotero-feed-sort/main/updates.json",
-      "strict_min_version": "9.0",
-      "strict_max_version": "9.0.*"
+      "strict_min_version": "10.0",
+      "strict_max_version": "10.0.*"
     }
   }
 }

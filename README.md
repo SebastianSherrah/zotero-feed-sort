@@ -1,27 +1,28 @@
 # Zotero Feed Sort
 
 Zotero Feed Sort adds normal, clickable column sorting to RSS feed views in
-Zotero 9.
-
-Feed entries are initially sorted by publication date, newest first. Click the
-**Date** heading to reverse the order. The arrow beside the heading shows the
-current direction. Other visible column headings can also be used for sorting.
+Zotero 10.
 
 ## Why this exists
 
-Zotero displays a date for each feed entry, but its feed views normally follow
-the entries' internal order and disable column sorting. If a publisher supplies
-items in an inconsistent order, the resulting feed can appear scrambled.
+For some reason Zotero doesn't let you do this, I don't know why.
+
+Zotero's **Settings → Advanced → Feeds → Sorting** option ("Newest items
+first") does not sort by publication date.
 
 This plugin enables the same familiar column-sorting behaviour in feed views
 that Zotero already provides elsewhere.
 
 ## Requirements
 
-- Zotero 9
+- Zotero 10.0.x
 
-The plugin has been tested with Zotero 9.0.6 on macOS. It should work on other
-desktop platforms supported by Zotero, but I don’t know if it does. If it doesn’t you can raise an issue.
+The plugin has been tested with Zotero 10.0.4 on macOS. It should also work on
+Windows and Linux, but this has not been tested. If it does not work for you,
+please [open an issue](https://github.com/SebastianSherrah/zotero-feed-sort/issues).
+
+For Zotero 9, use
+[version 1.0.0](https://github.com/SebastianSherrah/zotero-feed-sort/releases/tag/v1.0.0).
 
 ## Install
 
@@ -31,15 +32,8 @@ desktop platforms supported by Zotero, but I don’t know if it does. If it does
 3. Open the tools menu and choose **Install Plugin From File…**.
 4. Select the downloaded XPI file.
 
-## Use
-
-Select any source under **Feeds**, then click a column heading:
-
-- **Date ↓** sorts from newest to oldest.
-- **Date ↑** sorts from oldest to newest.
-- **Title** and **Creator** can also be sorted in either direction.
-
-The selected direction is shared across feed views.
+Zotero checks for plugin updates automatically. If you already have version
+1.0.0 installed, Zotero offers version 1.1.0 once you are on Zotero 10.
 
 ## Privacy and library safety
 
@@ -51,8 +45,8 @@ updates.
 
 ## Compatibility
 
-The plugin supports Zotero 9.0.x. It modifies internal Zotero interface behaviour,
-so a future major Zotero release may require a compatibility update.
+The plugin modifies internal Zotero interface behaviour, so a future Zotero
+release may require a compatibility update.
 
 This is an independent plugin and is not affiliated with the Zotero project.
 
@@ -60,17 +54,6 @@ This is an independent plugin and is not affiliated with the Zotero project.
 
 Open **Tools → Plugins**, find **Zotero Feed Sort**, open **More Options**, and
 choose **Remove**. Zotero's original feed ordering will be restored.
-
-## Build from source
-
-Building requires Node.js and the `zip` command:
-
-```sh
-./build.sh
-```
-
-The script checks the JavaScript and manifest, runs the tests, and creates the
-XPI in `dist/`.
 
 ## Licence
 

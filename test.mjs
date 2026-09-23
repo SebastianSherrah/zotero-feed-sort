@@ -108,4 +108,84 @@ assert.equal(normalView.getSortField(), "title");
 assert.equal(normalView.getSortDirection(), 1);
 assert.equal(feedRow.isSortable(), false);
 
+// Zotero 10: view-level isFeedsOrFeed(), and the first visible column is
+// marked as sorted when no sort has been saved
+context.enableFeedHeaderSorting();
+
+function makeZotero10FeedView(columnPrefs) {
+  let title = { dataKey: "title", sortDirection: 1 };
+  let date = { dataKey: "date" };
+  let view = {
+    props: { columnPicker: true },
+    _columnPrefs: columnPrefs,
+    _columnsId: "item-tree-main-feed-feed",
+    _columns: [title, date],
+    _sortedColumn: title,
+    sortCalls: 0,
+    isFeedsOrFeed() {
+      return true;
+    },
+    _getColumnPrefs() {
+      return this._columnPrefs || {};
+    },
+    _getColumns() {
+      return this._columns;
+    },
+    _getColumn(index) {
+      return this._columns[index];
+    },
+    getSortField() {
+      return "id";
+    },
+    getSortFields() {
+      return [this.getSortField()];
+    },
+    getSortDirection() {
+      return -1;
+    },
+    async sort() {
+      this.sortCalls++;
+    },
+    forceUpdate() {}
+  };
+  view._handleColumnSort = async (index, sortDirection) => {
+    let prefs = view._getColumnPrefs();
+    let column = view._getColumn(index);
+    delete view._sortedColumn.sortDirection;
+    view._sortedColumn = column;
+    column.sortDirection = sortDirection;
+    if (prefs[column.dataKey]) {
+      prefs[column.dataKey].sortDirection = sortDirection;
+    }
+    await view.sort();
+  };
+  return { view, title, date };
+}
+
+let unsaved = makeZotero10FeedView(null);
+let originalHandleColumnSort = unsaved.view._handleColumnSort;
+await context.patchWindow({ ZoteroPane: { itemsView: unsaved.view } });
+assert.equal(unsaved.view.getSortField(), "date");
+assert.equal(unsaved.view.getSortDirection(), -1);
+assert.equal(unsaved.title.sortDirection, undefined);
+assert.equal(unsaved.view.sortCalls, 1);
+
+// Clicking a heading saves the direction even without existing settings
+await unsaved.view._handleColumnSort.call(undefined, 0, -1);
+assert.equal(unsaved.view._columnPrefs.title.dataKey, "title");
+assert.equal(unsaved.view._columnPrefs.title.sortDirection, -1);
+assert.equal(unsaved.view.getSortField(), "title");
+assert.equal(unsaved.view.getSortDirection(), -1);
+
+let saved = makeZotero10FeedView({ title: { sortDirection: 1 } });
+await context.patchWindow({ ZoteroPane: { itemsView: saved.view } });
+assert.equal(saved.view.getSortField(), "title");
+assert.equal(saved.view.getSortDirection(), 1);
+
+await context.shutdown({}, 0);
+assert.equal(unsaved.view.getSortField(), "id");
+assert.equal(unsaved.view.getSortDirection(), -1);
+assert.equal(unsaved.view._handleColumnSort, originalHandleColumnSort);
+assert.equal(unsaved.view._columnsId, null);
+
 console.log("Zotero Feed Sort tests passed");
